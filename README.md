@@ -22,10 +22,10 @@ System.IO.FileNotFoundException: 파일이나 어셈블리 'SomeAssembly, Versio
 
 `HKLM\SOFTWARE\Microsoft\Fusion`
 
-|이름|타입|값|
-| :- | :-: | :- |
-|EnableLog|DWORD|1|
-|ForceLog|DWORD|1|
-|LogFailures|DWORD|1|
-|LogResourceBinds|DWORD|1|
-|LogPath|STRING|`<PATH TO LOG FILES;e.g.)c:\FusionLog\>`|
+```plaintext
+EnableLog DWORD 1
+ForceLog DWORD 1
+LogFailures DWORD 1
+LogResourceBinds DWORD 1
+LogPath STRING `<PATH TO LOG FILES;e.g.)c:\FusionLog\>`
+```
