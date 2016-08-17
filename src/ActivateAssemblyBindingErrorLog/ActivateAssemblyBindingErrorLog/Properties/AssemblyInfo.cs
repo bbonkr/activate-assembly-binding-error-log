@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ActivateAssemblyBindingErrorLog")]
+[assembly: AssemblyTitle("Activate Assembly Binding Error Log")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ActivateAssemblyBindingErrorLog")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("bbon.kr")]
+[assembly: AssemblyProduct("Activator Assembly Binding Error Log")]
+[assembly: AssemblyCopyright("Copyright © bbon 2016")]
+[assembly: AssemblyTrademark("bbon")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
