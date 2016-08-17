@@ -18,6 +18,8 @@ System.IO.FileNotFoundException: 파일이나 어셈블리 'SomeAssembly, Versio
 이 기능을 끄려면 레지스트리 값 [HKLM\Software\Microsoft\Fusion!EnableLog]를 제거하십시오.
 ```
 
+## 로깅 활성화
+
 레지스트리 편집기를 실행하고 아래 키로 이동 후 값을 추가합니다.
 
 `HKLM\SOFTWARE\Microsoft\Fusion`
@@ -29,3 +31,12 @@ LogFailures DWORD 1
 LogResourceBinds DWORD 1
 LogPath STRING `<PATH TO LOG FILES;e.g.)c:\FusionLog\>`
 ```
+
+## 응용 프로그램
+
+위 내용 중 레지스트리에 값을 추가하여 로깅을 활성화하고, 레지스트리의 값을 제거하여 로깅을 비활성하는 응용 프로그램입니다.
+
+바로 빌드하려면 아래 조건을 만족해야 합니다.
+
+IDE: Visual Studio 2015
+Target Framework: .NET Framework 4.5.2
