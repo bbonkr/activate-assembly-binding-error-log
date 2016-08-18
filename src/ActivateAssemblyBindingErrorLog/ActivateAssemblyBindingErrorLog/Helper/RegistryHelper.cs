@@ -43,6 +43,15 @@ namespace ActivateAssemblyBindingErrorLog.Helper
             RegistryKey sub = null;
             RegistryKey foundKey = null;
 
+            /*
+             * x64 OS:  Target key is not 'HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Fusion'
+             */
+            RegistryView registryView = RegistryView.Registry64;
+            if (Environment.Is64BitOperatingSystem)
+            {
+                registryView = RegistryView.Registry32;
+            }
+
             string subKey = String.Empty;
             List<string> keys = new List<string>();
             if (path.Contains("\\"))
@@ -60,19 +69,24 @@ namespace ActivateAssemblyBindingErrorLog.Helper
                 {
                     case "HKLM":
                     case "HKEY_LOCAL_MACHINE":
-                        root = Registry.LocalMachine;
+                        //root = Registry.LocalMachine;
+                        root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView);
                         break;
                     case "HKEY_CLASSES_ROOT":
-                        root = Registry.ClassesRoot;
+                        //root = Registry.ClassesRoot;
+                        root = RegistryKey.OpenBaseKey(RegistryHive.ClassesRoot, registryView);
                         break;
                     case "HKEY_CURRENT_USER":
-                        root = Registry.CurrentUser;
+                        //root = Registry.CurrentUser;
+                        root = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, registryView);
                         break;
                     case "HKEY_USERS":
-                        root = Registry.Users;
+                        //root = Registry.Users;
+                        root = RegistryKey.OpenBaseKey(RegistryHive.Users, registryView);
                         break;
                     case "HKEY_CURRENT_CONFIG":
-                        root = Registry.CurrentConfig;
+                        //root = Registry.CurrentConfig;
+                        root = RegistryKey.OpenBaseKey(RegistryHive.CurrentConfig, registryView);
                         break;
                 }
 
@@ -163,7 +177,7 @@ namespace ActivateAssemblyBindingErrorLog.Helper
         /// <param name="value"></param>
         /// <param name="valueKind"></param>
         /// <param name="commit"></param>
-        public static void AddItem(string path, string name, object value, RegistryValueKind valueKind, bool commit)
+        public static void AddValue(string path, string name, object value, RegistryValueKind valueKind, bool commit)
         {
             RegistryKey destKey = GetRegistryKey(path, true, true);
             try
@@ -187,9 +201,9 @@ namespace ActivateAssemblyBindingErrorLog.Helper
         /// <param name="path"></param>
         /// <param name="value"></param>
         /// <param name="commit"></param>
-        public static void AddItem(string path, RegistryValue value, bool commit)
+        public static void AddValue(string path, RegistryValue value, bool commit)
         {
-            AddItem(path, value.Name, value.Value, value.ValueKind, commit);
+            AddValue(path, value.Name, value.Value, value.ValueKind, commit);
         }
 
         /// <summary>
@@ -197,13 +211,13 @@ namespace ActivateAssemblyBindingErrorLog.Helper
         /// </summary>
         /// <param name="path"></param>
         /// <param name="values"></param>
-        public static void AddItems(string path, params RegistryValue[] values)
+        public static void AddValues(string path, params RegistryValue[] values)
         {
             if (values != null && values.Length > 0)
             {
                 foreach (var value in values)
                 {
-                    AddItem(path, value, false);
+                    AddValue(path, value, false);
                 }
 
                 RegistryKey destKey = GetRegistryKey(path, true, true);
@@ -217,7 +231,7 @@ namespace ActivateAssemblyBindingErrorLog.Helper
         /// <param name="path"></param>
         /// <param name="valueNames"></param>
         /// <param name="commit"></param>
-        public static void RemoveItem(string path, string valueNames, bool commit)
+        public static void RemoveValue(string path, string valueNames, bool commit)
         {
             RegistryKey destKey = GetRegistryKey(path, true, true);
             try
@@ -240,13 +254,13 @@ namespace ActivateAssemblyBindingErrorLog.Helper
         /// </summary>
         /// <param name="path"></param>
         /// <param name="valueNames"></param>
-        public static void RemoveItems(string path, params string[] valueNames)
+        public static void RemoveValues(string path, params string[] valueNames)
         {
             if (valueNames != null && valueNames.Length > 0)
             {
                 foreach (var name in valueNames)
                 {
-                    RemoveItem(path, name, false);
+                    RemoveValue(path, name, false);
                 }
 
                 RegistryKey destKey = GetRegistryKey(path, true, true);
@@ -259,9 +273,9 @@ namespace ActivateAssemblyBindingErrorLog.Helper
         /// </summary>
         /// <param name="path"></param>
         /// <param name="values"></param>
-        public static void RemoveItems(string path, params RegistryValue[] values)
+        public static void RemoveValues(string path, params RegistryValue[] values)
         {
-            RemoveItems(path, values.Select(v => v.Name).ToArray());
+            RemoveValues(path, values.Select(v => v.Name).ToArray());
         }
     }
 

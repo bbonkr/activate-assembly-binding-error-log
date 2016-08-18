@@ -103,13 +103,13 @@ namespace ActivateAssemblyBindingErrorLog
                                 }
 
                                 values = GetFusionValues(logPath: this.directoryTextBox.Text);
-                                RegistryHelper.AddItems(REGISTRY_PATH, values.ToArray());
+                                RegistryHelper.AddValues(REGISTRY_PATH, values.ToArray());
                                 messageToolStripStatusLabel1.Text = "Activated.";
                                 Logging("Activated.");
                                 break;
                             case BUTTON_DEACTIVATE:
                                 values = GetFusionValues();
-                                RegistryHelper.RemoveItems(REGISTRY_PATH, values.ToArray());
+                                RegistryHelper.RemoveValues(REGISTRY_PATH, values.ToArray());
                                 messageToolStripStatusLabel1.Text = "Deactivated.";
                                 Logging("Deactivated.");
                                 break;
